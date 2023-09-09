@@ -28,17 +28,8 @@ const processFunction = async (
     if (!range.isNullObject) {
       range.insertComment(comment_text + "\n" + "Точность: " + score.toFixed(2));
     }
-  } catch (e) {
-    //
-  }
-
-  // return context.document.body
-  //   .search(search_text.slice(0, 255).split("\\").join(""), {
-  //     ignorePunct: true,
-  //     ignoreSpace: true,
-  //   })
-  //   .getFirst()
-  //   .insertComment(comment_text + "\n" + "Точность: " + score.toFixed(2));
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
 };
 
 const typeKey: ScoreType = "bert";
@@ -107,13 +98,13 @@ export const App: FC<PropsWithChildren<AppProps>> = () => {
     }
   }, [processId, refetchProcess, timeout]);
 
-  // const textId = process?.current === process?.total ? process?.texts[0].id : undefined;
-  const textId = 3184;
+  const textId = process?.current === process?.total ? process?.texts[0].id : undefined;
+  // const textId = 3184;
 
   const {
     data: textEntity,
     isFetching: textFetching,
-    refetch: refetchText,
+    // refetch: refetchText,
   } = useText({
     textId: textId || 0,
     type: typeKey,
@@ -156,12 +147,12 @@ export const App: FC<PropsWithChildren<AppProps>> = () => {
       const documentBody = context.document.body;
       context.load(documentBody);
       return context.sync().then(async () => {
-        await refetchText();
+        // await refetchText();
 
-        // const text = documentBody.text;
-        // await createProcess({
-        //   text,
-        // });
+        const text = documentBody.text;
+        await createProcess({
+          text,
+        });
       });
     });
   }, []);
