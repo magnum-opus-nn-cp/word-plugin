@@ -113,8 +113,7 @@ export const App: FC<PropsWithChildren<AppProps>> = () => {
     },
   });
 
-  const answer = textEntity?.score?.[typeKey]?.answer;
-  const metric = textEntity?.score?.[typeKey]?.metric;
+  const answer = textEntity?.score?.["total"] as unknown as string;
   const summary = textEntity?.summary;
 
   const initRef = useRef(false);
@@ -177,7 +176,6 @@ export const App: FC<PropsWithChildren<AppProps>> = () => {
             <h3>Результат оценки</h3>
             <p>
               Оценочный рейтинг: {answer} <br />
-              {metric && `Точность: ${metric.toFixed(2)}`}
             </p>
             <h4>Краткое содержание</h4>
             <p>{summary}</p>
